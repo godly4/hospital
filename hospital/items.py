@@ -13,6 +13,7 @@ class HospitalItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     name = Field()
+    poiid = Field()
     province = Field()
     city = Field()
     district = Field()

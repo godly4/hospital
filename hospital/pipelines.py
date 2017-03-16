@@ -16,7 +16,7 @@ class HospitalPipeline(object):
     def process_item(self, item, spider):
         record = Hospital(item['name'], item['province'], item['city'], item['district'],\
                     item['address'], item['phone'], item['category'], item['label'], item['groundpos'],\
-                    item['marspos'], item['baidupos'])
+                    item['marspos'], item['baidupos'], item['poiid'])
 
         self.session.add(record)
         self.session.commit()

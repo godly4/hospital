@@ -9,12 +9,13 @@ from sqlalchemy import Column, String, Integer
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
-engine = create_engine("mysql://igsnrr:igsnrr@localhost/db_igsnrr?charset=utf8")
+engine = create_engine("mysql://igsnrr:igsnrr@10.29.88.87/db_igsnrr?charset=utf8")
 
 class Hospital(Base):
-    __tablename__ = "tb_hospital"
+    __tablename__ = "tb_hospital_tmp"
 
     id = Column(Integer, primary_key=True)
+    poiid = Column(Integer)
     name = Column(String(255))
     province = Column(String(255))
     city = Column(String(255))
@@ -27,7 +28,7 @@ class Hospital(Base):
     marspos = Column(String(255))
     baidupos = Column(String(255))
 
-    def __init__(self, n, p, c, d, a, ph, ca, l, g, m, b):
+    def __init__(self, n, p, c, d, a, ph, ca, l, g, m, b, poi):
         self.name = n
         self.province = p
         self.city = c
@@ -39,6 +40,7 @@ class Hospital(Base):
         self.groundpos = g
         self.marspos = m
         self.baidupos = b
+        self.poiid = poi
 
     def __repr__(self):
         return "<Hosiptal(id='%s', name='%s')>" % (self.id, self.name)

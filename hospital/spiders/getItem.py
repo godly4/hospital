@@ -62,12 +62,13 @@ class HospitalSpider(CrawlSpider):
     def getRecord(self, response):
         urls = response.xpath("//tr/td/a[not(contains(@href,'district') or contains(@href,'category'))]/@href").extract()
         for url in urls:
+            poiid = re.findall("\d+", url)[0]
             url = "http://www.poi86.com" + url
-            proxy, content = getIp()
-            yield Request(url=url, meta={"proxy":proxy}, callback=self.parseItem)
+            yield Request(url=url, meta={"poiid":poiid}, callback=self.parseItem)
 
     def parseItem(self, response):
         item = HospitalItem()
+        item["poiid"] = response.meta['poiid']
         item["name"] = response.xpath('//h1/text()').extract_first() 
 
         res = response.xpath("//ul/li[@class='list-group-item']/a/text()").extract()
